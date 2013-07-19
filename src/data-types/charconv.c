@@ -141,6 +141,12 @@ static const char * get_valid_charset(const char * fromcode)
   else if (strcasecmp(fromcode, "iso-2022-jp") == 0) {
     fromcode = "iso-2022-jp-2";
   }
+  else if (strcasecmp(fromcode, "BIG5") == 0) {
+      fromcode = "BIG5-HKSCS";
+  }
+  else if (strcasecmp(fromcode, "SHIFT_JIS") == 0) {
+      fromcode = "Shift_JISX0213";
+  }
   
   return fromcode;
 }
