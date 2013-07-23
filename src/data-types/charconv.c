@@ -124,7 +124,7 @@ static size_t mail_iconv (iconv_t cd, const char **inbuf, size_t *inbytesleft,
 
 static const char * get_valid_charset(const char * fromcode)
 {
-  if ((strcasecmp(fromcode, "GB2312") == 0) || (strcasecmp(fromcode, "GB_2312-80") == 0)) {
+  if ((strcasecmp(fromcode, "GB2312") == 0) || (strcasecmp(fromcode, "GB_2312-80") == 0) || (strcasecmp(fromcode, "x-gbk") == 0)) {
     fromcode = "GBK";
   }
   else if ((strcasecmp(fromcode, "iso-8859-8-i") == 0) || (strcasecmp(fromcode, "iso_8859-8-i") == 0) ||
