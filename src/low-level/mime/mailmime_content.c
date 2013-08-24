@@ -1812,9 +1812,8 @@ int mailmime_quoted_printable_body_parse(const char * message, size_t length,
 	if (cur_token + 1 >= length) {
           /* error but ignore it */
 	  state = STATE_NORMAL;
-          start = message + cur_token;
           cur_token ++;
-          count ++;
+          start = message + cur_token;
 	  break;
 	}
 
