@@ -770,7 +770,7 @@ static ssize_t mailstream_low_ssl_read(mailstream_low * s,
     case SSL_ERROR_NONE:
       return r;
       
-    case SSL_ERROR_ZERO_REgTURN:
+    case SSL_ERROR_ZERO_RETURN:
      // socket is not connected ,return failed instead of 0 when ssl_read return 0,
        return -1;
       
