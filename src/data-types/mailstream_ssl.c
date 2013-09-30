@@ -411,7 +411,6 @@ static struct mailstream_ssl_data * ssl_data_new_full(int fd, time_t timeout,
   
   SSL_CTX_set_app_data(tmp_ctx, ssl_context);
   SSL_CTX_set_client_cert_cb(tmp_ctx, mailstream_openssl_client_cert_cb);
-  SSL_CTX_set_mode(tmp_ctx, SSL_MODE_AUTO_RETRY);
   ssl_conn = (SSL *) SSL_new(tmp_ctx);
   if (ssl_conn == NULL)
     goto free_ctx;
@@ -817,8 +816,7 @@ static ssize_t mailstream_low_ssl_read(mailstream_low * s,
       return r;
     
     ssl_r = SSL_get_error(ssl_data->ssl_conn, r);
-      char byte[1024];
-      int p;
+
     switch (ssl_r) {
     case SSL_ERROR_NONE:
       return r;
