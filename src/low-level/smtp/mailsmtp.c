@@ -1200,6 +1200,9 @@ int mailesmtp_auth_sasl(mailsmtp * session, const char * auth_type,
     const char * login, const char * auth_name,
     const char * password, const char * realm)
 {
+  if (strcmp(auth_type, "XOAUTH2") == 0) {
+    return mailsmtp_oauth2_authenticate(session, login, password);
+  }
 #ifdef USE_SASL
   int r;
   char command[SMTP_STRING_SIZE];
