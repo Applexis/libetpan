@@ -58,6 +58,8 @@ extern "C" {
 
   @return The mail storage is returned.
 */
+  
+#define MAILSTORAGE_FAST_LOGOUT 1   //not logout if a connect error occurs for a faster speed
 
 LIBETPAN_EXPORT
 struct mailstorage * mailstorage_new(const char * sto_id);

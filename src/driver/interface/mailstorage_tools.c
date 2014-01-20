@@ -448,7 +448,9 @@ int mailstorage_generic_auth_sasl(mailsession * session,
       }
     }
     if (r != MAIL_NO_ERROR) {
+    #ifndef MAILSTORAGE_FAST_LOGOUT
       mailsession_logout(session);
+    #endif
       res = r;
       goto err;
     }
