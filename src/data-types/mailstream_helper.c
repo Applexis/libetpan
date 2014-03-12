@@ -369,6 +369,13 @@ static inline int send_data_crlf_progress(mailstream * s, const char * message,
 
   current = message;
   remaining = size;
+  
+  if (progr_fun != NULL) {
+    (* progr_fun)(count, size);
+  }
+  if (progr_context_fun != NULL) {
+    (* progr_context_fun)(count, size, context);
+  }
 
   while (remaining > 0) {
     ssize_t length;
@@ -399,6 +406,13 @@ static inline int send_data_crlf_progress(mailstream * s, const char * message,
     }
     
     remaining -= length;
+  }
+  
+  if (progr_fun != NULL) {
+    (* progr_fun)(size, size);
+  }
+  if (progr_context_fun != NULL) {
+    (* progr_context_fun)(size, size, context);
   }
   
   return 0;
