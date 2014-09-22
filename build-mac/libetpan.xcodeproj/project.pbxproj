@@ -1889,7 +1889,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp \"$SRCROOT/libsasl-ios/lib/libsasl2.a\" \"$BUILT_PRODUCTS_DIR\"\n";
+			shellScript = "#cp \"$SRCROOT/libsasl-ios/lib/libsasl2.a\" \"$BUILT_PRODUCTS_DIR\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2580,6 +2580,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -2604,6 +2605,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
