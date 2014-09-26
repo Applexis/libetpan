@@ -169,7 +169,7 @@ for TARGET in $TARGETS; do
         make -j 8 >> "$logfile" 2>&1
         if [[ "$?" != "0" ]]; then
           echo "CONFIGURE FAILED"
-          exit 1
+          #exit 1
         fi
         cd lib
         make install >> "$logfile" 2>&1
