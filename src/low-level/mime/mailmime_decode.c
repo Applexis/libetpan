@@ -149,7 +149,7 @@ int mailmime_encoded_phrase_parse(const char * default_fromcode,
           goto free;
           
         case MAIL_CHARCONV_ERROR_UNKNOWN_CHARSET:
-          r = charconv(tocode, "iso-8859-1", word->wd_text,
+          r = charconv(tocode, "UTF-8", word->wd_text,
                        strlen(word->wd_text), &wordutf8);
           break;
         case MAIL_CHARCONV_ERROR_CONV:

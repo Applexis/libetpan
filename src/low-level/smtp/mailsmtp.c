@@ -566,6 +566,9 @@ int mailesmtp_parse_ehlo(mailsmtp * session)
         } else if (strncasecmp(response, "KERBEROS_V4", 11) == 0) {
           session->auth |= MAILSMTP_AUTH_KERBEROS_V4;
           response += 11;
+        } else if (strncasecmp(response, "XOAUTH2", 7) == 0) {
+          session->auth |= MAILSMTP_AUTH_XOAUTH2;
+          response +=7;
         } else {
           /* unknown auth method - jump to next word or eol */
           while (!isdelim(response[0]) || response[0] == '\r')
@@ -1197,6 +1200,9 @@ int mailesmtp_auth_sasl(mailsmtp * session, const char * auth_type,
     const char * login, const char * auth_name,
     const char * password, const char * realm)
 {
+  if (strcmp(auth_type, "XOAUTH2") == 0) {
+    return mailsmtp_oauth2_authenticate(session, login, password);
+  }
 #ifdef USE_SASL
   int r;
   char command[SMTP_STRING_SIZE];

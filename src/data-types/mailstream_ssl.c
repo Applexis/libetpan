@@ -1,4 +1,4 @@
-/*
+    /*
  * libEtPan! -- a mail stuff library
  *
  * Copyright (C) 2001, 2005 - DINH Viet Hoa
@@ -98,6 +98,7 @@
 
 #include "mmapstring.h"
 #include "mailstream_cancel.h"
+#include <errno.h>
 
 struct mailstream_ssl_context
 {
@@ -843,7 +844,7 @@ static ssize_t mailstream_low_ssl_read(mailstream_low * s,
   
   if (mailstream_cancel_cancelled(ssl_data->cancel))
     return -1;
-  
+    
   while (1) {
     int ssl_r;
     
@@ -852,19 +853,27 @@ static ssize_t mailstream_low_ssl_read(mailstream_low * s,
       return r;
     
     ssl_r = SSL_get_error(ssl_data->ssl_conn, r);
+
     switch (ssl_r) {
     case SSL_ERROR_NONE:
       return r;
       
     case SSL_ERROR_ZERO_RETURN:
-      return r;
+     // socket is not connected ,return failed instead of 0 when ssl_read return 0,
+       return -1;
       
     case SSL_ERROR_WANT_READ:
-      r = wait_read(s);
+        // according to OpenSSL #2759: SSL_read / SSL_ERROR_WANT_READ / ENOTCONN infinite loop
+        // SSL_read always return -1 when the socket is not connected , only on ios platform , but it return 0 in ios simulator
+        // my workaround ,
+      if (errno == ENOTCONN) {
+          return -1 ;
+      }
+          r = wait_read(s);
       if (r < 0)
         return r;
       break;
-      
+            
     default:
       return -1;
     }

@@ -1242,7 +1242,7 @@ static int imapdriver_login_sasl(mailsession * session,
     r = mailimap_authenticate(get_imap_session(session),
         auth_type, server_fqdn, local_ip_port, remote_ip_port,
         login, auth_name, password, realm);
-  
+
   return imap_error_to_mail_error(r);
 }
 

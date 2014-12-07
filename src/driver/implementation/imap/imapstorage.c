@@ -426,7 +426,9 @@ static int imap_mailstorage_connect(struct mailstorage * storage)
 
   r = mailsession_select_folder(session, "INBOX");
   if (r != MAIL_NO_ERROR) {
+  #ifndef MAILSTORAGE_FAST_LOGOUT
     mailsession_logout(session);
+  #endif
     res = r;
     goto err;
   }
