@@ -1530,6 +1530,17 @@ int mailimap_login(mailimap * session,
 
   switch (error_code) {
   case MAILIMAP_RESP_COND_STATE_OK:
+    {
+      struct mailimap_id_params_list *params = mailimap_id_params_list_new_empty();
+      mailimap_id_params_list_add_name_value(params, "name", "LightMail");
+      mailimap_id_params_list_add_name_value(params, "version", "Nightly");
+      struct mailimap_id_params_list *id_result = NULL;
+      mailimap_id(session, params, &id_result);
+      
+      mailimap_id_params_list_free(params);
+      if (id_result != NULL)
+        mailimap_id_params_list_free(id_result);
+    }
     session->imap_state = MAILIMAP_STATE_AUTHENTICATED;
     return MAILIMAP_NO_ERROR;
 
